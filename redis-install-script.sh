@@ -4,7 +4,7 @@
 # Uses redis-server init script from https://raw.github.com/saxenap/install-redis-amazon-linux-centos/master/redis-server
 ###############################################
 # To use: 
-# wget https://raw.github.com/saxenap/install-redis-amazon-linux-centos/master/redis-install-script.sh
+# wget https://raw.github.com/Hardisty/install-redis-amazon-linux-centos/master/redis-install-script.sh
 # chmod 777 redis-install-script.sh
 # ./redis-install-script.sh
 ###############################################
@@ -12,15 +12,15 @@ echo "*****************************************"
 echo " 1. Prerequisites: Install updates, set time zones, install GCC and make"
 echo "*****************************************"
 sudo yum -y update
-sudo ln -sf /usr/share/zoneinfo/America/Indianapolis /etc/localtime
+sudo ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 sudo yum -y install gcc gcc-c++ make 
 echo "*****************************************"
 echo " 2. Download, Untar and Make Redis 2.6"
 echo "*****************************************"
-sudo wget http://redis.googlecode.com/files/redis-2.6.0-rc3.tar.gz
-sudo tar xzf redis-2.6.0-rc3.tar.gz
-sudo rm redis-2.6.0-rc3.tar.gz -f
-cd redis-2.6.0-rc3
+sudo wget http://redis.googlecode.com/files/redis-2.6.0-rc7.tar.gz
+sudo tar xzf redis-2.6.0-rc7.tar.gz
+sudo rm redis-2.6.0-rc7.tar.gz -f
+cd redis-2.6.0-rc7
 sudo make
 sudo make install
 echo "*****************************************"
@@ -34,16 +34,15 @@ echo " 4. Configure Redis.Conf"
 echo "*****************************************"
 echo " Edit redis.conf as follows:"
 echo " 1: ... daemonize yes"
-echo " 2: ... bind 127.0.0.1"
-echo " 3: ... dir /var/lib/redis"
-echo " 4: ... loglevel notice"
-echo " 5: ... logfile /var/log/redis.log"
+echo " 2: ... dir /var/lib/redis"
+echo " 3: ... loglevel notice"
+echo " 4: ... logfile /var/log/redis.log"
 echo "*****************************************"
-sudo sed -e "s/^daemonize no$/daemonize yes/" -e "s/^# bind 127.0.0.1$/bind 127.0.0.1/" -e "s/^dir \.\//dir \/var\/lib\/redis\//" -e "s/^loglevel verbose$/loglevel notice/" -e "s/^logfile stdout$/logfile \/var\/log\/redis.log/" redis.conf > /etc/redis/redis.conf
+sudo sed -e "s/^daemonize no$/daemonize yes/" -e "s/^dir \.\//dir \/var\/lib\/redis\//" -e "s/^loglevel verbose$/loglevel notice/" -e "s/^logfile stdout$/logfile \/var\/log\/redis.log/" redis.conf > /etc/redis/redis.conf
 echo "*****************************************"
 echo " 5. Download init Script"
 echo "*****************************************"
-wget https://raw.github.com/saxenap/install-redis-amazon-linux-centos/master/redis-server
+wget https://raw.github.com/Hardisty/install-redis-amazon-linux-centos/master/redis-server
 echo "*****************************************"
 echo " 6. Move and Configure Redis-Server"
 echo "*****************************************"
@@ -67,10 +66,9 @@ echo "   PONG"
 echo "*****************************************"
 echo " Following changes have been made in redis.config:"
 echo " 1: ... daemonize yes"
-echo " 2: ... bind 127.0.0.1"
-echo " 3: ... dir /var/lib/redis"
-echo " 4: ... loglevel notice"
-echo " 5: ... logfile /var/log/redis.log"
+echo " 2: ... dir /var/lib/redis"
+echo " 3: ... loglevel notice"
+echo " 4: ... logfile /var/log/redis.log"
 echo "*****************************************"
 read -p "Press [Enter] to continue..."
 
